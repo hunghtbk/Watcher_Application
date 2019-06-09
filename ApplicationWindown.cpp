@@ -62,7 +62,11 @@ void ApplicationWindown::setTimeInUI(int hour, int minute, int second)
     qmlObject = rootObject->findChild<QObject*>("hour");
     if (qmlObject) {
         int currentRotation = qmlObject->property("rotation").toInt();
-        int changeRotate = (hour - currentRotation/10) * 10;
+        int changeRotate;
+        if (hour > 12) {
+            hour = hour - 12;
+        }
+        changeRotate = (hour - currentRotation/30) * 30;
         qmlObject->setProperty("hourrotate", changeRotate);
         qmlObject->setProperty("hourValue", hour);
     } else {
